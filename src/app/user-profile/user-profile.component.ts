@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
     styleUrls: ['./user-profile.component.css']
 })
 
-export class UserProfileComponent {
+export class UserProfileComponent implements OnInit {
     imageSrc: string;
     selectedFile= null;
     username;
@@ -24,7 +24,30 @@ export class UserProfileComponent {
     postalcode;
     profile_img = null;
     file;
+    id;
     constructor(private fb: FormBuilder, private service: AdminService) { }
+
+    ngOnInit(): void {
+
+      this.service.getAdminProfileById().subscribe(data => {
+        console.log("data: ",data)
+        if(data){
+          // let adminDetails=JSON.parse(data)
+        this.id=data.data[0]._id;
+        this.username=data.data[0].name;
+        // console.log(data.data[0].name, "teststs");
+        this.email=data.data[0].email;
+        this.firstname=data.data[0].first_name;
+        this.lastname=data.data[0].last_name;
+        this.address=data.data[0].address;
+        this.city=data.data[0].city;
+        this.country=data.data[0].country;
+        this.postalcode=data.data[0].postal_code;
+        this.profile_img=data.data[0].profile_img;
+        }
+      })
+    
+    }
     // updateForm = new FormGroup({
             updateForm =  this.fb.group({
             userName: new FormControl('', [Validators.required]),
@@ -95,7 +118,7 @@ export class UserProfileComponent {
            console.log(this.country);
            console.log(this.postalcode);
            console.log(this.profile_img);
-
+           formData.append('id', this.id);
            formData.append('name', this.username);
            formData.append('email', this.email);
            formData.append('first_name', this.firstname);
@@ -108,9 +131,9 @@ export class UserProfileComponent {
            formData.append('profile_image', this.profile_img);
 
  
-           this.service.saveAdminProfile(formData).subscribe(data => {
-            console.log("Data Successfully Inserted!",data);
-            Swal.fire('Success..!', 'Successfully Created!', 'success')
+           this.service.updateAdminProfile(formData).subscribe(data => {
+            console.log("Data Successfully Updated!",data);
+            Swal.fire('Success..!', 'Successfully Updated!', 'success')
           },err => {
             if(err.status >= 400){
               console.log('Invalid Credential!!!');

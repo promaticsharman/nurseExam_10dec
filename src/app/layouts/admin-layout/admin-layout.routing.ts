@@ -119,7 +119,7 @@ export const AdminLayoutRoutes: Routes = [
     { path : 'cart-list', component : CartComponent},
     { path : 'add-cart', component : AddCartComponent},
     { path : 'edit-cart/:cart_id', component: EditCartComponent},
-    { path:  'user_list',component:UserListingComponent}
+    { path:  'user_list',component:UserListingComponent},
     // { path : 'add-faq', component: AddFaqComponent}
-    // { path: 'login',        component: LoginComponent },
+     { path: 'login',component: LoginComponent },
 ];

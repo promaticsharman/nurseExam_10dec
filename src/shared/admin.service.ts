@@ -701,10 +701,13 @@ export class AdminService {
       )
   }
 
-  saveAdminProfile (data): Observable<any> {
-    let API_URL = `${this.apiUrl}admin/saveAdminProfile    `;
+  updateAdminProfile (data): Observable<any> {
+    var obj={
+      id:data
+    }
+    let API_URL = `${this.apiUrl}admin/updateAdminProfile    `;
     console.log(API_URL);
-    return this.httpClient.post(API_URL, data, httpOptions)
+    return this.httpClient.post(API_URL, obj, httpOptions)
       .pipe(
         map(res => {
           return res
@@ -1054,5 +1057,18 @@ export class AdminService {
         catchError(this.error)
       )
   }
+
+  getAdminProfileById():Observable<any>{
+    
+    let API_URL = `${this.apiUrl}admin/getAdminProfileList`;
+    console.log(API_URL);
+    return this.httpClient.get(API_URL, httpOptions)
+      .pipe(
+        map(res => {
+          return res
+        }),
+        catchError(this.error)
+      )
+    }
 
 }

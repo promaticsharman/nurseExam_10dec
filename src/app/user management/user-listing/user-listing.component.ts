@@ -28,7 +28,7 @@ export class UserListingComponent implements OnInit {
 	timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
 	filterValue
 	responseData = []
-	displayedColumns: string[] = ['Username', 'Fullname', 'email', 'Address', 'City','Country','Postal Code']
+	displayedColumns: string[] = ['Username', 'Fullname', 'Email', 'Address', 'City','Country','Postal Code']
 	element_id
 	allReplacement = 54321
 	data = []

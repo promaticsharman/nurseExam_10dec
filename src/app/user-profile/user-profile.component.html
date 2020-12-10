@@ -29,7 +29,7 @@
                                          <small *ngIf="Email.errors?.pattern" class="text-danger">Please provide a valid email address</small>
                                       </div>
                               </div>
-                              <div class="col-md-4">
+                              <!-- <div class="col-md-4">
                                 <mat-form-field class="example-full-width">
                                   <input matInput placeholder="Password" [(ngModel)]="password" formControlName="password" type="password" >
                                 </mat-form-field>
@@ -39,20 +39,20 @@
                                        <small *ngIf="updateForm.controls['password'].errors.required">Password is required.</small>
                                        <small *ngIf="updateForm.controls['password'].errors.minlength">password must be at least 8 characters long.</small>
                                     </div>
-                              </div>
-                              <div class="col-md-4">
+                              </div> -->
+                              <!-- <div class="col-md-4">
                                 <mat-form-field class="example-full-width">
                                   <input matInput placeholder="Confirm password" formControlName="confirmPassword" type="password" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }"> 
-                                </mat-form-field>
+                                </mat-form-field> -->
 
-                                    <div *ngIf="updateForm.controls['confirmPassword'].invalid &&
+                                    <!-- <div *ngIf="updateForm.controls['confirmPassword'].invalid &&
                                        (updateForm.controls['confirmPassword'].dirty || updateForm.controls['confirmPassword'].touched)" 
                                        class="text-danger">
                                        <small *ngIf="updateForm.controls['confirmPassword'].errors.required">Confirm Password is required.</small>
 
                                        <small *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</small>
-                                    </div>
-                            </div>
+                                    </div> -->
+                            <!-- </div> -->
                           </div>
                           <div class="row">
                               <div class="col-md-6">
@@ -129,15 +129,16 @@
           <div class="col-md-4">
               <div class="card card-profile">
                   <div class="card-avatar">
-                <input 
-                [(ngModel)]="profile_img"
-                id="file" 
-                type="file" 
-                class="form-control"
-                (change)="onFileChange($event)">
-                      <a href="javascript:void(0)">
-                          <img class="img" src="{{imageSrc}}" />
-                      </a>
+                  <a href="javascript:void(0)">
+                    <input 
+                    [(ngModel)]="profile_img"
+                    id="file" 
+                    type="file" 
+                    accept="image/*"
+                    class="form-control"
+                    (change)="onFileChange($event)">
+                   <img class="img" src="{{imageSrc}}"/>
+                  </a>
                   </div>
                     <div class="card-body">
                       <h6 class="card-category text-gray">CEO / Co-Founder</h6>

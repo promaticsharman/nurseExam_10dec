@@ -32,23 +32,22 @@
                                     </td>
                                 </ng-container>
                                 <!-- Position Column -->
-                                <ng-container matColumnDef="id" class="mat-row">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="mat-header-cell"> ID
+                                <ng-container matColumnDef="Username" class="mat-row">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="mat-header-cell"> Username
                                     </th>
                                     <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
                                 </ng-container>
 
                                 <!-- Weight Column -->
-                                <ng-container matColumnDef="first_name" class="mat-row">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="mat-header-cell"> Full
-                                        Name
+                                <ng-container matColumnDef="Fullname" class="mat-row">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="mat-header-cell"> Full Name
                                     </th>
                                     <td mat-cell *matCellDef="let element"> {{element.first_name}} </td>
                                 </ng-container>
 
-                                <ng-container matColumnDef="last_name" class="mat-row">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="mat-header-cell"> Full
-                                        Name
+                                <ng-container matColumnDef="Email" class="mat-row">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="mat-header-cell"> Email
+                                        
                                     </th>
                                     <td mat-cell *matCellDef="let element"> {{element.last_name}} </td>
                                 </ng-container>
