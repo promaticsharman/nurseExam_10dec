@@ -77,7 +77,7 @@ import { EditHomeBannerComponent } from './edit-home-banner/edit-home-banner.com
 import { CartComponent } from './cart/cart.component';
 import { AddCartComponent } from './add-cart/add-cart.component';
 import { EditCartComponent } from './edit-cart/edit-cart.component';
-
+import { ToastrModule } from 'ngx-toastr';  
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -107,7 +107,8 @@ import { EditCartComponent } from './edit-cart/edit-cart.component';
     MatRadioModule,
     MatSelectModule,
     MatListModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    ToastrModule.forRoot() 
     // AgmCoreModule.forRoot({
     //   apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     // })

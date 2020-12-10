@@ -22,7 +22,7 @@ export class UserProfileComponent implements OnInit {
     city;
     country;
     postalcode;
-    profile_img = null;
+    profile_img;
     file;
     id;
     constructor(private fb: FormBuilder, private service: AdminService) { }

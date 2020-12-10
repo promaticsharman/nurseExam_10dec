@@ -62,17 +62,6 @@ export class AdminService {
       )
   }
 
-  adminlogin(data): Observable<any> {
-    let API_URL = `${this.apiUrl}admin/login`;
-    return this.httpClient.post(API_URL, data)
-      .pipe(
-        map(res => {
-          return res
-        }),
-        catchError(this.error)
-      )
-  }
-
   getUserListing(limit, offset): Observable<any> {
     let API_URL = `${this.apiUrl}getUserListing?page=` + offset + `&limit=` + limit;
     console.log(API_URL)
@@ -1070,5 +1059,16 @@ export class AdminService {
         catchError(this.error)
       )
     }
+
+    
+  adminLogin(data): Observable<any> {
+    let API_URL = `${this.apiUrl}admin/adminLogin`;
+    return this.httpClient.post(API_URL, data)
+      .pipe(
+        map(res => {
+          return res
+        })
+      )
+  }
 
 }

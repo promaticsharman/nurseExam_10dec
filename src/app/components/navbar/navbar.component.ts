@@ -130,4 +130,10 @@ subscription: Subscription;
       }
       return 'Dashboard';
     }
+    logOut(){
+        localStorage.removeItem('data');
+        // console.log(data)
+        localStorage.clear();
+        this.router.navigate(['/login']);
+    }
 }
