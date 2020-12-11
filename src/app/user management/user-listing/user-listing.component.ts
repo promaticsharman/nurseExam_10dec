@@ -28,7 +28,7 @@ export class UserListingComponent implements OnInit {
 	timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
 	filterValue
 	responseData = []
-	displayedColumns: string[] = ['select', 'sr.no', 'first_name','email', 'mobile_number','zipcode','status','action']
+	displayedColumns: string[] = ['select', 'sr.no', 'first_name','examName','email', 'mobile_number','zipcode','status','action']
 	element_id
 	allReplacement = 54321
 	data = []
@@ -46,7 +46,7 @@ export class UserListingComponent implements OnInit {
 		 ngOnInit(): void {
 			this.reqData = {}
 				this.reqData.offset = 0
-				this.reqData.limit = 10
+				this.reqData.limit = 20
 				this.dataSource = new MatTableDataSource(this.responseData);
 				this.dataSource.paginator = this.paginator;
 				this.dataSource.sort = this.sort;
@@ -117,27 +117,23 @@ export class UserListingComponent implements OnInit {
 		this.reqData.offset = (evt.pageIndex * evt.pageSize).toString()
 		this.reqData.limit = evt.pageSize
 		console.log(this.reqData)
-		this.adminService.getExamList(this.reqData.limit, this.reqData.offset).subscribe(data => {
+		this.adminService.userListing(this.reqData.limit, this.reqData.offset).subscribe(data => {
 			console.log(data)
-			if (data) {
-				this.responseData = data.data.data.rows
-				this.length = data.data.count
-				this.dataSource = new MatTableDataSource(data.data.data);
-				this.dataSource.sort = this.sort;
-				console.log(this.dataSource)
-				if (this.filterValue) {
-					this.dataSource.filter = this.filterValue
+			if(data){
+				this.length = data.count
+				// this.dataSource = data.data;
+				this.dataSource = new MatTableDataSource(data.data);
+				console.log("Datrda",this.dataSource);
+				// console.log(this.dataSource[0],"fixxxrst name")
+			  }
+			}, err => {
+				console.log(err);
+				if(err.status >= 400){
+				  console.log('Invalid Credential!!!');
+				}else{
+				  console.log('Internet Connection Error');
 				}
-			}
-		}, err => {
-			console.log(err)
-			if (err.status >= 400) {
-				// this.toastr.error('Internal Error', 'Error')
-			} else {
-				// this.toastr.error('Internet Connection Error', 'Error')
-				console.log('Internet Connection Error')
-			}
-		})
+			})
   }
 
 	isAllSelected() {

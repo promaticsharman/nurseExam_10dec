@@ -45,11 +45,13 @@
 
                                 <ng-container matColumnDef="examName" class="mat-row">
                                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="mat-header-cell"> EXAM PURCHASED</th>
-                                    <tbody>
-                                        <tr *ngFor="let purchase of puchasedPlan let i=index; "></tr>
-                                        <td mat-cell *matCellDef="let element" >{{purchase.examName}}</td>
-                                    </tbody>
-                                    
+                                   
+                                        <!-- <tr *ngFor="let purchase of puchasedPlan let i=index; "></tr> -->
+                                        <td  mat-cell *matCellDef="let element">
+                                            <ul *ngIf="element.puchasedPlan.length > 0">
+                                                <li *ngFor="let item of element.puchasedPlan"> {{item.exam_id.examName }}</li>
+                                            </ul>
+                                        </td>
                                 </ng-container>
                                 <!-- element.puchasedPlan[0].exam_id.examName -->
                                 <ng-container matColumnDef="email" class="mat-row">
