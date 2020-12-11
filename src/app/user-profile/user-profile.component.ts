@@ -1,9 +1,11 @@
+import { environment } from './../../environments/environment.prod';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, FormArray, Validators } from "@angular/forms";
 import { from } from 'rxjs';
 import { AdminService } from "../../shared/admin.service";
 import { MustMatch } from "./../user-profile/must-match";
 import Swal from 'sweetalert2';
+
 @Component({
     selector: 'app-user-profile',
     templateUrl: './user-profile.component.html',
@@ -12,7 +14,6 @@ import Swal from 'sweetalert2';
 
 export class UserProfileComponent implements OnInit {
     imageSrc: string;
-    selectedFile= null;
     username;
     email;
     firstname;
@@ -22,20 +23,21 @@ export class UserProfileComponent implements OnInit {
     city;
     country;
     postalcode;
-    profile_img;
     file;
     id;
-    constructor(private fb: FormBuilder, private service: AdminService) { }
+    image
+    img_url
+    constructor(
+      private fb: FormBuilder, private service: AdminService
+      ) { }
 
     ngOnInit(): void {
-
+      this.img_url = environment.profile_img
       this.service.getAdminProfileById().subscribe(data => {
         console.log("data: ",data)
         if(data){
-          // let adminDetails=JSON.parse(data)
         this.id=data.data[0]._id;
         this.username=data.data[0].name;
-        // console.log(data.data[0].name, "teststs");
         this.email=data.data[0].email;
         this.firstname=data.data[0].first_name;
         this.lastname=data.data[0].last_name;
@@ -43,12 +45,11 @@ export class UserProfileComponent implements OnInit {
         this.city=data.data[0].city;
         this.country=data.data[0].country;
         this.postalcode=data.data[0].postal_code;
-        this.profile_img=data.data[0].profile_img;
+        this.imageSrc=data.data[0].profile_image;
         }
       })
     
     }
-    // updateForm = new FormGroup({
             updateForm =  this.fb.group({
             userName: new FormControl('', [Validators.required]),
             email: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
@@ -81,25 +82,42 @@ export class UserProfileComponent implements OnInit {
         get Email() {
             return this.updateForm.get('email')
         }
-         
-        // onFileSelected(event){
-        //     this.selectedFile=event.target.files[0];
-        // }
+       
+        onFileChanged(event) {
+          const file = event.target.files[0]
+        }
 
-        onFileChange(event) {
-            const reader = new FileReader();    
-            if(event.target.files && event.target.files.length) {
-              const [file] = event.target.files;
-              reader.readAsDataURL(file);
-               reader.onload = () => {   
-                this.imageSrc = reader.result as string;     
-                // this.myForm.patchValue({
-                //   fileSource: reader.result
-                // });   
-              };
-             console.log(reader);
-            }
-          } 
+        onFileChange(evt) {
+          if (!evt.target) {
+            return;
+          }
+          if (!evt.target.files) {
+            return;
+          }
+          if (evt.target.files.length !== 1) {
+            return;
+          }
+          const file = evt.target.files[0];
+          if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/jpg') {
+            // this.toastr.warning('Please upload image file')
+            return;
+          }
+          console.log(evt.target.files[0])
+          this.imageSrc = evt.target.files[0];
+          const fr = new FileReader();
+          fr.onloadend = (loadEvent) => {
+            let mainImage = fr.result;
+            this.image = mainImage;
+          };
+          fr.readAsDataURL(file);
+      
+          // if (event.target.files.length > 0) {
+          //   const file = event.target.files[0];
+          //   this.bannerData.image = file;
+          //   console.log(file);
+          // }
+      
+        }
        update(){
         // if (this.updateForm.valid){
         //     alert("thank you ! your form is submitted successfully")
@@ -113,22 +131,24 @@ export class UserProfileComponent implements OnInit {
            console.log(this.firstname);
            console.log(this.lastname);
            console.log(this.address);
-           console.log(this.password);
+          //  console.log(this.password);
            console.log(this.city);
            console.log(this.country);
            console.log(this.postalcode);
-           console.log(this.profile_img);
+           console.log(this.imageSrc);
+           console.log("User ID  : ",this.id)
+
            formData.append('id', this.id);
            formData.append('name', this.username);
            formData.append('email', this.email);
            formData.append('first_name', this.firstname);
            formData.append('last_name', this.lastname);
            formData.append('address', this.address);
-           formData.append('password', this.password);
+          //  formData.append('password', this.password);
            formData.append('city', this.city);
            formData.append('country', this.country);
            formData.append('postal_code', this.postalcode);
-           formData.append('profile_image', this.profile_img);
+           formData.append('profile_image', this.imageSrc);
 
  
            this.service.updateAdminProfile(formData).subscribe(data => {
@@ -141,8 +161,5 @@ export class UserProfileComponent implements OnInit {
               console.log('Internet Connection Error');
             }
           })
-        }
-      
-
-       }
-    
+       }}
+        

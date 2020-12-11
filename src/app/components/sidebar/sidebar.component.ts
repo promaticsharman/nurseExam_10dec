@@ -22,7 +22,7 @@ export const ROUTES: RouteInfo[] = [
       ]
     },
     { path: '*', title: 'User Management',  icon:'people', class: '' , subcat:[
-      { path: '/user_list', title: 'User Profile',  icon:'info', class: '' }
+      { path: '/user_list', title: 'User List',  icon:'info', class: '' }
     ] 
     },
     { path: '*', title: 'Home Page Management',  icon:'home', class: '' , subcat:[

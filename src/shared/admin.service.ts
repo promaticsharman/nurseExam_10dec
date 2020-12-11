@@ -691,12 +691,9 @@ export class AdminService {
   }
 
   updateAdminProfile (data): Observable<any> {
-    var obj={
-      id:data
-    }
-    let API_URL = `${this.apiUrl}admin/updateAdminProfile    `;
+   let API_URL = `${this.apiUrl}admin/updateAdminProfile`;
     console.log(API_URL);
-    return this.httpClient.post(API_URL, obj, httpOptions)
+    return this.httpClient.post(API_URL,data, httpOptions)
       .pipe(
         map(res => {
           return res
@@ -1068,6 +1065,18 @@ export class AdminService {
         map(res => {
           return res
         })
+      )
+  }
+  
+  userListing(limit, offset): Observable<any>{
+    let API_URL = `${this.apiUrl}admin/users/list?page=` + offset + `&limit=` + limit;
+    console.log(API_URL);
+    return this.httpClient.post(API_URL, httpOptions)
+      .pipe(
+        map(res => {
+          return res
+        }),
+        catchError(this.error)
       )
   }
 

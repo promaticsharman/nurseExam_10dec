@@ -1,3 +1,5 @@
+
+
 <div class="main-content">
   <div class="container-fluid">
       <div class="row">
@@ -129,15 +131,22 @@
           <div class="col-md-4">
               <div class="card card-profile">
                   <div class="card-avatar">
+                    <span class="upload_66">
+                      <i class="fa fa-edit"></i>
+                      <input type="file" #uploadFile value="imageSrc"
+                      (change)="onFileChange($event)" accept="image/*">
+                    </span>
                   <a href="javascript:void(0)">
-                    <input 
+                    <!-- <input 
                     [(ngModel)]="profile_img"
                     id="file" 
                     type="file" 
                     accept="image/*"
                     class="form-control"
-                    (change)="onFileChange($event)">
-                   <img class="img" src="{{imageSrc}}"/>
+                    (change)="onFileChange($event)"> -->
+                   
+                      <img *ngIf="image" class="img-responsive" [src]="image" />
+                   <img *ngIf="!image && imageSrc" class="img" src="{{img_url}}{{imageSrc}}"/>
                   </a>
                   </div>
                     <div class="card-body">
